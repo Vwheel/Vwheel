@@ -1,34 +1,52 @@
-<!-- 1. NOME DO FICHEIRO: index.html -->
+<!-- 1. index.html (SUBSTITUI TUDO) -->
 <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes"><title>Vwheel PRO</title>
+    <title>Vwheel PRO</title>
     <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=3.2">
 </head>
 <body>
     <div id="loading-screen" style="position:fixed; inset:0; background:#0b0e14; z-index:99999; display:flex; flex-direction:column; align-items:center; justify-content:center;">
         <div style="width:40px; height:40px; border:3px solid rgba(255,255,255,0.1); border-top:3px solid #3b82f6; border-radius:50%; animation:spin 1s linear infinite;"></div>
-        <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+        <p style="color:#94a3b8; margin-top:20px; font-weight:600; font-family:'Outfit';">Vwheel PRO Sincronizando...</p>
     </div>
-    <div id="app-section" style="display:none; min-height:100vh; background:#0b0e14; color:#fff; font-family:'Outfit';">
-        <header style="padding:20px; border-bottom:1px solid #333; display:flex; justify-content:space-between; align-items:center;">
+    
+    <div id="login-section" class="hidden" style="min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:30px;">
+        <h1 style="font-weight:800; font-size:2.5rem; text-align:center; color:#fff;">Vwheel<br><span style="color:#3b82f6; font-size:1rem; letter-spacing:4px;">PRO</span></h1>
+        <div style="width:100%; max-width:350px; margin-top:30px;">
+            <input type="email" id="l-email" placeholder="O teu email" style="width:100%; padding:15px; margin-bottom:10px; border-radius:12px; border:1px solid #333; background:#161a22; color:#fff;">
+            <input type="password" id="l-password" placeholder="A tua senha" style="width:100%; padding:15px; margin-bottom:20px; border-radius:12px; border:1px solid #333; background:#161a22; color:#fff;">
+            <button id="btn-login" style="width:100%; background:#3b82f6; color:#fff; border:none; padding:16px; border-radius:16px; font-weight:800; font-size:1.1rem;">Entrar</button>
+        </div>
+    </div>
+
+    <div id="app-section" class="hidden" style="min-height:100vh; display:flex; flex-direction:column;">
+        <header style="padding:20px; border-bottom:1px solid #333; display:flex; justify-content:space-between; align-items:center; color:#fff;">
             <div style="font-weight:800; font-size:1.4rem;">Vwheel PRO</div>
-            <div style="color:#3b82f6; font-weight:800;">ATIVO</div>
+            <button onclick="localStorage.clear(); location.reload();" style="background:none; border:none; color:#3b82f6; font-weight:800;">Sair</button>
         </header>
         <div id="cal-grid" style="display:grid; grid-template-columns:repeat(7,1fr); gap:10px; padding:20px;"></div>
     </div>
-    <div id="modal-day" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:2000; align-items:flex-end; justify-content:center;">
+
+    <div id="modal-day" class="hidden" style="position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:2000; display:flex; align-items:flex-end; justify-content:center;">
         <div style="width:100%; max-width:500px; background:#161a22; border-radius:30px 30px 0 0; padding:30px; color:#fff;">
-            <h3 id="lbl-date" style="margin-bottom:20px;">Dia</h3>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px;">
-                <input type="number" id="km-start" placeholder="KM INÍCIO" style="background:#0b0e14; border:1px solid #333; color:#fff; padding:15px; border-radius:12px; text-align:center;">
-                <input type="number" id="km-end" placeholder="KM FIM" style="background:#0b0e14; border:1px solid #333; color:#fff; padding:15px; border-radius:12px; text-align:center;">
+            <h3 id="lbl-date" style="margin-bottom:20px; font-weight:800;">Detalhes do Dia</h3>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:20px;">
+                <div style="text-align:center;"><small style="color:#94a3b8;">KM INÍCIO</small><input type="number" id="km-start" style="width:100%; background:none; border:1px solid #333; color:#fff; padding:15px; border-radius:12px; text-align:center; font-size:1.2rem; font-weight:800; margin-top:5px;"></div>
+                <div style="text-align:center;"><small style="color:#94a3b8;">KM FIM</small><input type="number" id="km-end" style="width:100%; background:none; border:1px solid #333; color:#fff; padding:15px; border-radius:12px; text-align:center; font-size:1.2rem; font-weight:800; margin-top:5px;"></div>
             </div>
-            <button id="btn-save" style="width:100%; background:#3b82f6; color:#fff; padding:18px; border:none; border-radius:15px; font-weight:800;">GRAVAR E RESUMO</button>
+            <button id="btn-save" style="width:100%; background:#3b82f6; color:#fff; padding:18px; border:none; border-radius:15px; font-weight:800; font-size:1.1rem; margin-bottom:10px;">Gravar e Resumo</button>
+            <button onclick="document.getElementById('modal-day').classList.add('hidden')" style="width:100%; padding:10px; background:none; border:none; color:#94a3b8;">Fechar</button>
         </div>
     </div>
-    <script type="module" src="app.js"></script>
+
+    <style>
+        body { background:#0b0e14; margin:0; font-family:'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .hidden { display:none !important; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+    <script type="module" src="app.js?v=3.2"></script>
 </body>
 </html>

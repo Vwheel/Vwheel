@@ -1,0 +1,6 @@
+/* 3. NOME DO FICHEIRO: style.css */
+/* Não precisas de muito, o estilo principal já está no index.html 
+   mas podes criar este ficheiro para garantir que o layout fica perfeito. */
+:root { --bg: #0b0e14; --surface: #161a22; --accent: #3b82f6; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); }
